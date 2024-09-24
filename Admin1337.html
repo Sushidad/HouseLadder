@@ -7,6 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
             padding: 20px;
         }
         form {
@@ -14,11 +16,34 @@
         }
         input {
             margin-right: 10px;
+            background-color: #1e1e1e;
+            border: 1px solid #444;
+            color: #ffffff;
+        }
+        button {
+            background-color: #ffd700;
+            border: none;
+            color: #000;
+            padding: 5px 10px;
         }
         table, th, td {
-            border: 1px solid #000;
+            border: 1px solid #444;
             padding: 10px;
             text-align: center;
+        }
+        th, td {
+            color: #ffffff;
+        }
+        th {
+            background-color: #1e1e1e;
+        }
+        h1 {
+            color: #ffd700;
+        }
+        .top-rank {
+            font-weight: bold;
+            border: 2px solid #ffd700;
+            color: #ffd700;
         }
     </style>
 </head>
@@ -48,8 +73,10 @@
         function renderAdminLeaderboard() {
             const adminLeaderboard = document.getElementById('adminLeaderboard');
             adminLeaderboard.innerHTML = '';
+            players.sort((a, b) => b.score - a.score);
             players.forEach((player, index) => {
-                const row = `<tr>
+                const topRankClass = index === 0 ? 'top-rank' : '';
+                const row = `<tr class="${topRankClass}">
                     <td>${player.name}</td>
                     <td>${player.score}</td>
                     <td>
