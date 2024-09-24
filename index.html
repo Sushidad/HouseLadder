@@ -15,13 +15,10 @@
             text-align: center;
             color: #ffd700;
         }
-
-        /* Table styling */
         .table-container {
             width: 100%;
             overflow-x: auto;
         }
-
         table {
             width: 100%;
             max-width: 600px;
@@ -39,21 +36,15 @@
         th {
             background-color: #1e1e1e;
         }
-
-        /* Top rank styling */
         .top-rank {
             font-weight: bold;
             border: 2px solid #ffd700;
             color: #ffd700;
         }
-
-        /* Responsive adjustments */
         @media (max-width: 600px) {
             th, td {
                 padding: 5px;
             }
-
-            /* Adjust font size for mobile */
             table {
                 font-size: 14px;
             }
@@ -62,7 +53,6 @@
 </head>
 <body>
     <h1>Game Leaderboard</h1>
-
     <div class="table-container">
         <table>
             <thead>
@@ -78,21 +68,48 @@
         </table>
     </div>
 
+    <!-- Firebase setup -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js"></script>
     <script>
-        const players = JSON.parse(localStorage.getItem('players')) || [];
+        // Firebase configuration from your Firebase project
+        const firebaseConfig = {
+            apiKey: "AIzaSyDNmlUvpZCiyOfu4c8VrNPclRgTz-_Wy38",
+            authDomain: "houseladderfirebase.firebaseapp.com",
+            databaseURL: "https://houseladderfirebase-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "houseladderfirebase",
+            storageBucket: "houseladderfirebase.appspot.com",
+            messagingSenderId: "749338752601",
+            appId: "1:749338752601:web:62acaa81f72ed50d386348"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const leaderboardRef = db.ref('leaderboard');
 
         function renderLeaderboard() {
             const leaderboard = document.getElementById('leaderboard');
-            leaderboard.innerHTML = '';
-            players.sort((a, b) => b.score - a.score);
-            players.forEach((player, index) => {
-                const topRankClass = index === 0 ? 'top-rank' : '';
-                const row = `<tr class="${topRankClass}">
-                    <td>${index + 1}</td>
-                    <td>${player.name}</td>
-                    <td>${player.score}</td>
-                </tr>`;
-                leaderboard.innerHTML += row;
+            leaderboard.innerHTML = ''; // Clear the table
+
+            // Get the leaderboard data from Firebase
+            leaderboardRef.once('value', (snapshot) => {
+                const players = [];
+                snapshot.forEach((childSnapshot) => {
+                    players.push(childSnapshot.val());
+                });
+
+                players.sort((a, b) => b.score - a.score);
+
+                players.forEach((player, index) => {
+                    const topRankClass = index === 0 ? 'top-rank' : '';
+                    const row = `<tr class="${topRankClass}">
+                        <td>${index + 1}</td>
+                        <td>${player.name}</td>
+                        <td>${player.score}</td>
+                    </tr>`;
+                    leaderboard.innerHTML += row;
+                });
             });
         }
 
