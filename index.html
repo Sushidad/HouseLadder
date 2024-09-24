@@ -15,6 +15,7 @@
         h1 {
             text-align: center;
             color: #ffd700;
+            margin-top: 20px;
         }
 
         /* Style for the banner image */
@@ -27,44 +28,53 @@
 
         .table-container {
             width: 100%;
-            overflow-x: auto;
-            padding: 20px; /* Padding for the rest of the page */
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: #1f1f1f;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
-        table {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            border-collapse: collapse;
-            color: #ffffff;
+        .player-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background-color: #292929;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, background-color 0.2s;
         }
 
-        table, th, td {
-            border: 1px solid #444;
+        .player-card:hover {
+            transform: translateY(-5px);
+            background-color: #333333;
         }
 
-        th, td {
-            padding: 10px;
-            text-align: center;
+        .player-rank {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffd700;
         }
 
-        th {
-            background-color: #1e1e1e;
+        .player-name, .player-score {
+            font-size: 1.1em;
+            font-weight: normal;
         }
 
         .top-rank {
             font-weight: bold;
             border: 2px solid #ffd700;
-            color: #ffd700;
+            background-color: #333333;
         }
 
+        /* Responsive adjustments */
         @media (max-width: 600px) {
-            th, td {
-                padding: 5px;
-            }
-
-            table {
-                font-size: 14px;
+            .player-card {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
@@ -75,24 +85,15 @@
 
     <h1>Game Leaderboard</h1>
     <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Player</th>
-                    <th>Score</th>
-                </tr>
-            </thead>
-            <tbody id="leaderboard">
-                <!-- Players will be added here dynamically -->
-            </tbody>
-        </table>
+        <div id="leaderboard">
+            <!-- Players will be added here dynamically -->
+        </div>
     </div>
 
-    	<!-- Firebase App (the core Firebase SDK) -->
-	<script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app-compat.js"></script>
-	<!-- Firebase Database SDK -->
-	<script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database-compat.js"></script>
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app-compat.js"></script>
+    <!-- Firebase Database SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database-compat.js"></script>
 
     <script>
         // Firebase configuration from your Firebase project
@@ -113,7 +114,7 @@
 
         function renderLeaderboard() {
             const leaderboard = document.getElementById('leaderboard');
-            leaderboard.innerHTML = ''; // Clear the table
+            leaderboard.innerHTML = ''; // Clear the leaderboard
 
             // Get the leaderboard data from Firebase
             leaderboardRef.once('value', (snapshot) => {
@@ -126,12 +127,14 @@
 
                 players.forEach((player, index) => {
                     const topRankClass = index === 0 ? 'top-rank' : '';
-                    const row = `<tr class="${topRankClass}">
-                        <td>${index + 1}</td>
-                        <td>${player.name}</td>
-                        <td>${player.score}</td>
-                    </tr>`;
-                    leaderboard.innerHTML += row;
+                    const playerCard = `
+                        <div class="player-card ${topRankClass}">
+                            <div class="player-rank">#${index + 1}</div>
+                            <div class="player-name">${player.name}</div>
+                            <div class="player-score">${player.score}</div>
+                        </div>
+                    `;
+                    leaderboard.innerHTML += playerCard;
                 });
             });
         }
