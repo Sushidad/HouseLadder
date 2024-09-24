@@ -11,8 +11,20 @@
             color: #ffffff;
             padding: 20px;
         }
+        h1 {
+            text-align: center;
+            color: #ffd700;
+        }
+
+        /* Table styling */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
         table {
-            width: 50%;
+            width: 100%;
+            max-width: 600px;
             margin: 0 auto;
             border-collapse: collapse;
             color: #ffffff;
@@ -27,31 +39,44 @@
         th {
             background-color: #1e1e1e;
         }
-        h1 {
-            text-align: center;
-            color: #ffd700;
-        }
+
+        /* Top rank styling */
         .top-rank {
             font-weight: bold;
             border: 2px solid #ffd700;
             color: #ffd700;
         }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            th, td {
+                padding: 5px;
+            }
+
+            /* Adjust font size for mobile */
+            table {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>House Leaderboard</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Rank</th>
-                <th>Player</th>
-                <th>Score</th>
-            </tr>
-        </thead>
-        <tbody id="leaderboard">
-            <!-- Players will be added here dynamically -->
-        </tbody>
-    </table>
+    <h1>Game Leaderboard</h1>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard">
+                <!-- Players will be added here dynamically -->
+            </tbody>
+        </table>
+    </div>
 
     <script>
         const players = JSON.parse(localStorage.getItem('players')) || [];
