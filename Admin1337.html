@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input {
+            margin-right: 10px;
+        }
+        table, th, td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin - Manage Leaderboard</h1>
+    <form id="addPlayerForm">
+        <input type="text" id="playerName" placeholder="Player Name" required>
+        <input type="number" id="playerScore" placeholder="Score" required>
+        <button type="submit">Add Player</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Player</th>
+                <th>Score</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="adminLeaderboard">
+            <!-- Players will be added here dynamically -->
+        </tbody>
+    </table>
+
+    <script>
+        let players = JSON.parse(localStorage.getItem('players')) || [];
+
+        function renderAdminLeaderboard() {
+            const adminLeaderboard = document.getElementById('adminLeaderboard');
+            adminLeaderboard.innerHTML = '';
+            players.forEach((player, index) => {
+                const row = `<tr>
+                    <td>${player.name}</td>
+                    <td>${player.score}</td>
+                    <td>
+                        <button onclick="removePlayer(${index})">Remove</button>
+                        <button onclick="updateScore(${index})">Update Score</button>
+                    </td>
+                </tr>`;
+                adminLeaderboard.innerHTML += row;
+            });
+        }
+
+        function addPlayer(name, score) {
+            players.push({ name, score });
+            localStorage.setItem('players', JSON.stringify(players));
+            renderAdminLeaderboard();
+        }
+
+        function removePlayer(index) {
+            players.splice(index, 1);
+            localStorage.setItem('players', JSON.stringify(players));
+            renderAdminLeaderboard();
+        }
+
+        function updateScore(index) {
+            const newScore = prompt("Enter new score:", players[index].score);
+            if (newScore !== null) {
+                players[index].score = parseInt(newScore, 10);
+                localStorage.setItem('players', JSON.stringify(players));
+                renderAdminLeaderboard();
+            }
+        }
+
+        document.getElementById('addPlayerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const playerName = document.getElementById('playerName').value;
+            const playerScore = parseInt(document.getElementById('playerScore').value, 10);
+            addPlayer(playerName, playerScore);
+            e.target.reset();
+        });
+
+        renderAdminLeaderboard();
+    </script>
+</body>
+</html>
