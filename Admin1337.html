@@ -5,7 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Manage Leaderboard</title>
     <style>
-        /* Your styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #ffd700;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            color: #ffffff;
+        }
+        table, th, td {
+            border: 1px solid #444;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #1e1e1e;
+        }
+        .top-rank {
+            font-weight: bold;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+        }
+        @media (max-width: 600px) {
+            th, td {
+                padding: 5px;
+            }
+            table {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
