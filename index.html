@@ -27,36 +27,35 @@
         }
 
         /* Header row */
-	.leaderboard-header {
-   	 display: flex;
-    	justify-content: space-between;
-    	padding: 10px 20px;
-    	font-weight: 500;
-    	font-size: 1em;
-    	color: #bbb;
-    	background: linear-gradient(to right, #2a2a2a, #1e1e1e);
-    	border-radius: 8px;
-   	 margin-bottom: 10px;
-	}
+        .leaderboard-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            font-weight: 500;
+            font-size: 1em;
+            color: #bbb;
+            background: linear-gradient(to right, #2a2a2a, #1e1e1e);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
 
-	.leaderboard-header div {
-   	 text-align: left; /* Ensure all text aligns left */
-	}
+        .leaderboard-header div {
+            text-align: left; /* Ensure all text aligns left */
+        }
 
-	.leaderboard-header div:nth-child(1) {
-   	 width: 50px; /* Rank */
-	}
+        .leaderboard-header div:nth-child(1) {
+            width: 50px; /* Rank */
+        }
 
-	.leaderboard-header div:nth-child(2) {
-   	 flex-grow: 1; /* Name (centered relative to the player names) */
-    	margin-left: 10px;
-	}
+        .leaderboard-header div:nth-child(2) {
+            flex-grow: 1; /* Name (centered relative to the player names) */
+            margin-left: 10px;
+        }
 
-	.leaderboard-header div:nth-child(3) {
-   	 width: 80px; /* Score */
-    	text-align: right;
-	}
-
+        .leaderboard-header div:nth-child(3) {
+            width: 80px; /* Score */
+            text-align: right;
+        }
 
         /* Player row */
         .player-card {
@@ -92,7 +91,7 @@
         .player-avatar {
             width: 50px;
             height: 50px;
-            border-radius: 0%;
+            border-radius: 50%;
             margin-right: 15px;
         }
 
@@ -110,6 +109,67 @@
             text-align: right;
             font-size: 1.1em;
             color: #aaa;
+        }
+
+        /* Top rank particle effect */
+        .top-rank {
+            position: relative;
+            border: 2px solid gold;
+            overflow: hidden; /* Hide the particles once they move outside the row */
+        }
+
+        .top-rank::before, .top-rank::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .top-rank::before {
+            background: radial-gradient(circle, rgba(255,215,0,0.2), rgba(255,215,0,0) 70%);
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.8);
+            }
+        }
+
+        @keyframes particle-move {
+            from {
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(calc(50px * (random() - 0.5))) translateY(calc(50px * (random() - 0.5)));
+                opacity: 0;
+            }
+        }
+
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: gold;
+            animation: particle-move 2s infinite ease-in-out;
+        }
+
+        /* Add particles around the top rank */
+        .particle-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
         }
 
         /* Responsive adjustments */
@@ -174,12 +234,21 @@
                 players.sort((a, b) => b.score - a.score);
 
                 players.forEach((player, index) => {
+                    const topRankClass = index === 0 ? 'top-rank' : '';
                     const playerCard = `
-                        <div class="player-card">
+                        <div class="player-card ${topRankClass}">
                             <div class="player-rank">${index + 1}.</div>
                             <img src="${player.avatar}" alt="Avatar" class="player-avatar">
                             <div class="player-name">${player.name}</div>
                             <div class="player-score">${player.score}</div>
+                            ${index === 0 ? `
+                            <div class="particle-container">
+                                <div class="particle"></div>
+                                <div class="particle"></div>
+                                <div class="particle"></div>
+                                <div class="particle"></div>
+                                <div class="particle"></div>
+                            </div>` : ''}
                         </div>
                     `;
                     leaderboard.innerHTML += playerCard;
