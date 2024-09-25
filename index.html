@@ -27,17 +27,36 @@
         }
 
         /* Header row */
-        .leaderboard-header {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 20px;
-            font-weight: 500;
-            font-size: 1em;
-            color: #bbb;
-            background: linear-gradient(to right, #2a2a2a, #1e1e1e);
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
+	.leaderboard-header {
+   	 display: flex;
+    	justify-content: space-between;
+    	padding: 10px 20px;
+    	font-weight: 500;
+    	font-size: 1em;
+    	color: #bbb;
+    	background: linear-gradient(to right, #2a2a2a, #1e1e1e);
+    	border-radius: 8px;
+   	 margin-bottom: 10px;
+	}
+
+	.leaderboard-header div {
+   	 text-align: left; /* Ensure all text aligns left */
+	}
+
+	.leaderboard-header div:nth-child(1) {
+   	 width: 50px; /* Rank */
+	}
+
+	.leaderboard-header div:nth-child(2) {
+   	 flex-grow: 1; /* Name (centered relative to the player names) */
+    	margin-left: 10px;
+	}
+
+	.leaderboard-header div:nth-child(3) {
+   	 width: 80px; /* Score */
+    	text-align: right;
+	}
+
 
         /* Player row */
         .player-card {
