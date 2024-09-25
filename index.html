@@ -49,7 +49,7 @@
 
         .leaderboard-header div:nth-child(2) {
             flex-grow: 1; /* Name (centered relative to the player names) */
-            margin-left: 70px;
+            margin-left: 10px;
         }
 
         .leaderboard-header div:nth-child(3) {
@@ -175,8 +175,8 @@
             pointer-events: none;
         }
 
-        /* Particle generation */
-        .particle-container div {
+        /* Randomize particle positions */
+        .particle {
             top: calc(100% * var(--random-y));
             left: calc(100% * var(--random-x));
         }
@@ -257,7 +257,7 @@
                             <div class="player-score">${player.score}</div>
                             ${index === 0 ? `
                             <div class="particle-container">
-                                ${Array.from({length: 10}).map(() => `
+                                ${Array.from({length: 15}).map(() => `
                                     <div class="particle" style="--random-x: ${randomBetween(0, 1)}; --random-y: ${randomBetween(0, 1)};"></div>
                                 `).join('')}
                             </div>` : ''}
