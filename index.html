@@ -14,12 +14,6 @@
             background-size: cover; /* Ensure background image covers the full viewport */
         }
 
-        h1 {
-            text-align: center;
-            color: #ffd700;
-            margin-top: 20px;
-        }
-
         /* Centered content with grey background */
         .content-container {
             max-width: 900px;
@@ -30,6 +24,18 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
+        /* Header row */
+        .leaderboard-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #ffd700;
+            border-bottom: 1px solid #444;
+        }
+
+        /* Player row */
         .player-card {
             display: flex;
             justify-content: space-between;
@@ -39,34 +45,38 @@
             border-radius: 8px;
             background-color: #292929;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s, background-color 0.2s;
         }
 
-        .player-card:hover {
-            transform: translateY(-5px);
-            background-color: #333333;
+        .player-rank {
+            width: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffd700;
+            text-align: left;
         }
 
-        .player-card img {
-            width: 40px;
-            height: 40px;
+        .player-avatar {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             margin-right: 10px;
         }
 
-        .player-rank {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #ffd700;
+        .player-name {
+            flex-grow: 1;
+            font-size: 1.1em;
+            margin-left: 10px;
+            text-align: left;
         }
 
-        .player-name, .player-score {
+        .player-score {
+            width: 80px;
+            text-align: right;
             font-size: 1.1em;
         }
 
-        .top-rank {
-            font-weight: bold;
-            border: 2px solid #ffd700;
+        /* Hover effect */
+        .player-card:hover {
             background-color: #333333;
         }
 
@@ -76,13 +86,21 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+            .player-rank, .player-score {
+                text-align: left;
+            }
         }
     </style>
 </head>
 <body>
-
-    <h1>House Leaderboard</h1>
     <div class="content-container">
+        <!-- Leaderboard header row -->
+        <div class="leaderboard-header">
+            <div>Rank</div>
+            <div>Name</div>
+            <div>Score</div>
+        </div>
+
         <div id="leaderboard">
             <!-- Players will be added here dynamically -->
         </div>
@@ -127,8 +145,8 @@
                     const topRankClass = index === 0 ? 'top-rank' : '';
                     const playerCard = `
                         <div class="player-card ${topRankClass}">
-                            <img src="${player.avatar}" alt="Avatar">
-                            <div class="player-rank">#${index + 1}</div>
+                            <div class="player-rank">${index + 1}.</div>
+                            <img src="${player.avatar}" alt="Avatar" class="player-avatar">
                             <div class="player-name">${player.name}</div>
                             <div class="player-score">${player.score}</div>
                         </div>
