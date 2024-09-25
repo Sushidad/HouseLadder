@@ -212,6 +212,25 @@
         const db = firebase.database();
         const leaderboardRef = db.ref('leaderboard');
 
+        function generateAvatarURL(baseUrl, rank) {
+            let avatarUrl = baseUrl; // Start with the base URL from Firebase
+
+            // If rank 1, modify the mouth option
+            if (rank === 1) {
+                avatarUrl = avatarUrl.replace(/&mouth=[^&]*/, ''); // Remove any existing mouth option
+                avatarUrl += '&mouth=smile01,smile02'; // Append smile options for rank 1
+            }
+
+            // If rank 9 or lower, modify the eyes option
+            else if (rank >= 9) {
+                avatarUrl = avatarUrl.replace(/&eyes=[^&]*/, ''); // Remove any existing eyes option
+                avatarUrl += '&eyes=dizzy'; // Append dizzy eyes for ranks 9 or lower
+            }
+
+            // Return the final avatar URL with the appropriate options (if any)
+            return avatarUrl;
+        }
+
         function renderLeaderboard() {
             const leaderboard = document.getElementById('leaderboard');
             leaderboard.innerHTML = ''; // Clear the leaderboard
