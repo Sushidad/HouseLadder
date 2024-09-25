@@ -117,7 +117,7 @@
 
         // Function to generate an avatar using Dicebear API with the player's name as a seed
         function generateAvatar(playerName) {
-   		 return `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(playerName)}&radius=10&backgroundType=gradientLinear,solid`;
+   		 return `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(playerName)}&radius=10&backgroundType=solid`;
 	}
 
 
@@ -161,7 +161,7 @@
                 snapshot.forEach((childSnapshot) => {
                     const player = childSnapshot.val();
                     const row = `<tr>
-                        <td><img src="${player.avatar}" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; vertical-align: middle;"> ${player.name}</td>
+                        <td><img src="${player.avatar}" alt="Avatar" style="width: 40px; height: 40px; border-radius: 0%; vertical-align: middle;"> ${player.name}</td>
                         <td>${player.score}</td>
                         <td>
                             <button onclick="removePlayer('${childSnapshot.key}')">Remove</button>
