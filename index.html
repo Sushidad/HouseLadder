@@ -166,15 +166,16 @@
         }
 
         /* Red line between rank 8 and 9 */
-        .red-line {
-            border-top: 2px solid red;
-            margin: 20px 0;
-        }
+        .grey-line {
+    border-top: 2px solid lightgrey;
+    margin: 20px 0;
+}
 
         /* Subtle red frame for players below rank 8 */
         .below-rank-8 {
-            border: 2px solid rgba(255, 0, 0, 0.5); /* Subtle red border */
-        }
+    opacity: 0.6; /* Slight transparency */
+}
+
 
         /* Responsive adjustments */
         @media (max-width: 600px) {
@@ -276,26 +277,26 @@
                     const avatarUrlWithOptions = generateAvatarURL(baseAvatarUrl, rank); // Apply the rank-based logic
 
                     const playerCard = `
-                        <div class="player-card ${rank === 1 ? 'top-rank' : ''} ${playerClass}">
-                            <div class="player-rank">${rank}.</div>
-                            <img src="${avatarUrlWithOptions}" alt="Avatar" class="player-avatar">
-                            <div class="player-name">${player.name}</div>
-                            <div class="player-score">${player.score}</div>
-                            ${rank === 1 ? `
-                            <div class="particle-container">
-                                ${Array.from({length: 15}).map(() => `
-                                    <div class="particle" style="--random-x: ${Math.random()}; --random-y: ${Math.random()};"></div>
-                                `).join('')}
-                            </div>` : ''}
-                        </div>
-                    `;
+    	<div class="player-card ${rank === 1 ? 'top-rank' : ''} ${playerClass}">
+        <div class="player-rank">${rank}.</div>
+        <img src="${avatarUrlWithOptions}" alt="Avatar" class="player-avatar">
+        <div class="player-name">${player.name}</div>
+        <div class="player-score">${player.score}</div>
+        ${rank === 1 ? `
+        <div class="particle-container">
+            ${Array.from({length: 15}).map(() => `
+                <div class="particle" style="--random-x: ${Math.random()}; --random-y: ${Math.random()};"></div>
+            `).join('')}
+        </div>` : ''}
+    </div>
+`;
 
-                    leaderboard.innerHTML += playerCard;
+leaderboard.innerHTML += playerCard;
 
-                    // Insert red line after rank 8
-                    if (rank === 8) {
-                        leaderboard.innerHTML += `<div class="red-line"></div>`;
-                    }
+// Insert grey line after rank 8
+if (rank === 8) {
+    leaderboard.innerHTML += `<div class="grey-line"></div>`;
+}
                 });
             });
         }
