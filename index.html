@@ -49,7 +49,7 @@
 
         .leaderboard-header div:nth-child(2) {
             flex-grow: 1; /* Name (centered relative to the player names) */
-            margin-left: 10px;
+            margin-left: 70px;
         }
 
         .leaderboard-header div:nth-child(3) {
@@ -91,7 +91,7 @@
         .player-avatar {
             width: 50px;
             height: 50px;
-            border-radius: 50%;
+            border-radius: 0%;
             margin-right: 15px;
         }
 
@@ -233,6 +233,20 @@
         function randomBetween(min, max) {
             return Math.random() * (max - min) + min;
         }
+
+        // Function to regenerate particles with random positions
+        function regenerateParticles() {
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach(particle => {
+                const randomX = randomBetween(0, 1);
+                const randomY = randomBetween(0, 1);
+                particle.style.setProperty('--random-x', randomX);
+                particle.style.setProperty('--random-y', randomY);
+            });
+        }
+
+        // Regenerate particles every 2 seconds
+        setInterval(regenerateParticles, 2000);
 
         function renderLeaderboard() {
             const leaderboard = document.getElementById('leaderboard');
