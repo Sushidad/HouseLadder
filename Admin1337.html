@@ -117,8 +117,9 @@
 
         // Function to generate an avatar using Dicebear API with the player's name as a seed
         function generateAvatar(playerName) {
-            return `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(playerName)}`; // Using the player's name as seed
-        }
+   		 return `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(playerName)}&radius=10&backgroundType=gradientLinear,solid`;
+	}
+
 
         // Add Player function with avatar based on the player's name
         function addPlayer(name, score) {
