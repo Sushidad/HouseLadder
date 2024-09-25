@@ -40,20 +40,20 @@
         }
 
         .leaderboard-header div {
-            text-align: left; /* Ensure all text aligns left */
+            text-align: left;
         }
 
         .leaderboard-header div:nth-child(1) {
-            width: 50px; /* Rank */
+            width: 50px;
         }
 
         .leaderboard-header div:nth-child(2) {
-            flex-grow: 1; /* Name (centered relative to the player names) */
+            flex-grow: 1;
             margin-left: 70px;
         }
 
         .leaderboard-header div:nth-child(3) {
-            width: 80px; /* Score */
+            width: 80px;
             text-align: right;
         }
 
@@ -115,18 +115,7 @@
         .top-rank {
             position: relative;
             border: 2px solid gold;
-            overflow: hidden; /* Hide the particles once they move outside the row */
-        }
-
-        .top-rank::before, .top-rank::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
+            overflow: hidden;
         }
 
         .top-rank::before {
@@ -140,18 +129,6 @@
             }
             to {
                 box-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.8);
-            }
-        }
-
-        /* Particle animation */
-        @keyframes particle-move {
-            0% {
-                transform: translate(0, 0);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(calc(100px * (random() - 0.5)), calc(100px * (random() - 0.5)));
-                opacity: 0;
             }
         }
 
@@ -175,10 +152,16 @@
             pointer-events: none;
         }
 
-        /* Randomize particle positions */
-        .particle {
-            top: calc(100% * var(--random-y));
-            left: calc(100% * var(--random-x));
+        /* Red line between rank 8 and 9 */
+        .red-line {
+            border-top: 2px solid red;
+            margin: 20px 0;
+        }
+
+        /* Red tint for players below rank 8 */
+        .below-rank-8 {
+            background-color: rgba(150, 0, 0, 0.3);
+            border: 2px solid red;
         }
 
         /* Responsive adjustments */
@@ -229,46 +212,6 @@
         const db = firebase.database();
         const leaderboardRef = db.ref('leaderboard');
 
-        // Random number generator for particle placement
-        function randomBetween(min, max) {
-            return Math.random() * (max - min) + min;
-        }
-
-        function generateAvatarURL(baseUrl, rank) {
-   	 let avatarUrl = baseUrl; // Start with the base URL from Firebase
-
-    	// If rank 1, modify the mouth option
-    	if (rank === 1) {
-       	 // Check if mouth is already set, if not, append smile options
-       	 avatarUrl = avatarUrl.replace(/&mouth=[^&]*/, ''); // Remove any existing mouth option
-       	 avatarUrl += '&mouth=smile01,smile02'; // Append smile options for rank 1
-   	 }
-
-   	 // If rank 9 or lower, modify the eyes option
-    	else if (rank >= 9) {
-       	 // Check if eyes are already set, if not, append dizzy eyes
-        	avatarUrl = avatarUrl.replace(/&eyes=[^&]*/, ''); // Remove any existing eyes option
-       	 avatarUrl += '&eyes=dizzy'; // Append dizzy eyes for ranks 9 or lower
-    	}
-
-    	// Return the final avatar URL with the appropriate options (only if conditions are met)
-    	return avatarUrl;
-	}
-
-        // Function to regenerate particles with random positions
-        function regenerateParticles() {
-            const particles = document.querySelectorAll('.particle');
-            particles.forEach(particle => {
-                const randomX = randomBetween(0, 1);
-                const randomY = randomBetween(0, 1);
-                particle.style.setProperty('--random-x', randomX);
-                particle.style.setProperty('--random-y', randomY);
-            });
-        }
-
-        // Regenerate particles every 2 seconds
-        setInterval(regenerateParticles, 2000);
-
         function renderLeaderboard() {
             const leaderboard = document.getElementById('leaderboard');
             leaderboard.innerHTML = ''; // Clear the leaderboard
@@ -285,10 +228,11 @@
                 players.forEach((player, index) => {
                     const rank = index + 1;
                     const baseAvatarUrl = player.avatar; // Base avatar URL from Firebase
+                    const playerClass = rank > 8 ? 'below-rank-8' : '';
                     const avatarUrlWithOptions = generateAvatarURL(baseAvatarUrl, rank); // Apply the rank-based logic
 
                     const playerCard = `
-                        <div class="player-card ${rank === 1 ? 'top-rank' : ''}">
+                        <div class="player-card ${rank === 1 ? 'top-rank' : ''} ${playerClass}">
                             <div class="player-rank">${rank}.</div>
                             <img src="${avatarUrlWithOptions}" alt="Avatar" class="player-avatar">
                             <div class="player-name">${player.name}</div>
@@ -296,12 +240,18 @@
                             ${rank === 1 ? `
                             <div class="particle-container">
                                 ${Array.from({length: 15}).map(() => `
-                                    <div class="particle" style="--random-x: ${randomBetween(0, 1)}; --random-y: ${randomBetween(0, 1)};"></div>
+                                    <div class="particle" style="--random-x: ${Math.random()}; --random-y: ${Math.random()};"></div>
                                 `).join('')}
                             </div>` : ''}
                         </div>
                     `;
+
                     leaderboard.innerHTML += playerCard;
+
+                    // Insert red line after rank 8
+                    if (rank === 8) {
+                        leaderboard.innerHTML += `<div class="red-line"></div>`;
+                    }
                 });
             });
         }
