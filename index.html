@@ -7,32 +7,26 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #121212;
             color: #ffffff;
-            padding: 0; /* Remove padding to make the banner touch the edges */
-            margin: 0; /* Remove margin to eliminate extra space */
+            margin: 0;
+            padding: 0;
+            background: url('https://raw.githubusercontent.com/Sushidad/HouseLadder/main/Background_image.png') no-repeat center center fixed;
+            background-size: cover; /* Ensure background image covers the full viewport */
         }
+
         h1 {
             text-align: center;
             color: #ffd700;
             margin-top: 20px;
         }
 
-        /* Style for the banner image */
-        .banner {
-            width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .table-container {
-            width: 100%;
+        /* Centered content with grey background */
+        .content-container {
             max-width: 900px;
-            margin: 20px auto;
+            margin: 50px auto;
             padding: 20px;
-            border-radius: 12px;
             background-color: #1f1f1f;
+            border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
@@ -61,7 +55,6 @@
 
         .player-name, .player-score {
             font-size: 1.1em;
-            font-weight: normal;
         }
 
         .top-rank {
@@ -80,11 +73,9 @@
     </style>
 </head>
 <body>
-    <!-- Banner image -->
-    <img src="https://raw.githubusercontent.com/Sushidad/HouseLadder/main/Banner_image.png" alt="Leaderboard Banner" class="banner">
 
     <h1>House Leaderboard</h1>
-    <div class="table-container">
+    <div class="content-container">
         <div id="leaderboard">
             <!-- Players will be added here dynamically -->
         </div>
