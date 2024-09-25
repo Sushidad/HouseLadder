@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
-            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            color: #e0e0e0;
             margin: 0;
             padding: 0;
             background: url('https://raw.githubusercontent.com/Sushidad/HouseLadder/main/Background_image.png') no-repeat center center fixed;
-            background-size: cover; /* Ensure background image covers the full viewport */
+            background-size: cover;
         }
 
         /* Centered content with grey background */
@@ -19,9 +21,9 @@
             max-width: 900px;
             margin: 50px auto;
             padding: 20px;
-            background-color: #1f1f1f;
+            background-color: rgba(31, 31, 31, 0.9); /* Slight transparency for depth */
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
         /* Header row */
@@ -29,10 +31,12 @@
             display: flex;
             justify-content: space-between;
             padding: 10px 20px;
-            font-weight: bold;
-            font-size: 1.1em;
-            color: #ffd700;
-            border-bottom: 1px solid #444;
+            font-weight: 500;
+            font-size: 1em;
+            color: #bbb;
+            background: linear-gradient(to right, #2a2a2a, #1e1e1e);
+            border-radius: 8px;
+            margin-bottom: 10px;
         }
 
         /* Player row */
@@ -40,18 +44,29 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
-            margin-bottom: 10px;
+            padding: 15px 20px;
             border-radius: 8px;
+            margin-bottom: 10px;
             background-color: #292929;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        /* Alternate background for rows */
+        .player-card:nth-child(even) {
+            background-color: #333333;
+        }
+
+        .player-card:hover {
+            background-color: #444444;
+            transform: scale(1.02);
         }
 
         .player-rank {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #ffffff;
             width: 50px;
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #ffd700;
             text-align: left;
         }
 
@@ -59,25 +74,23 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            margin-right: 10px;
+            margin-right: 15px;
         }
 
         .player-name {
             flex-grow: 1;
-            font-size: 1.1em;
+            font-size: 1.2em;
+            font-weight: 500;
             margin-left: 10px;
             text-align: left;
+            color: #e0e0e0;
         }
 
         .player-score {
             width: 80px;
             text-align: right;
             font-size: 1.1em;
-        }
-
-        /* Hover effect */
-        .player-card:hover {
-            background-color: #333333;
+            color: #aaa;
         }
 
         /* Responsive adjustments */
@@ -142,9 +155,8 @@
                 players.sort((a, b) => b.score - a.score);
 
                 players.forEach((player, index) => {
-                    const topRankClass = index === 0 ? 'top-rank' : '';
                     const playerCard = `
-                        <div class="player-card ${topRankClass}">
+                        <div class="player-card">
                             <div class="player-rank">${index + 1}.</div>
                             <img src="${player.avatar}" alt="Avatar" class="player-avatar">
                             <div class="player-name">${player.name}</div>
