@@ -80,14 +80,14 @@
     <script>
         // Firebase configuration from your Firebase project
         const firebaseConfig = {
-  		apiKey: "AIzaSyDNmlUvpZCiyOfu4c8VrNPclRgTz-_Wy38",
-  		authDomain: "houseladderfirebase.firebaseapp.com",
-  		databaseURL: "https://houseladderfirebase-default-rtdb.europe-west1.firebasedatabase.app",
-  		projectId: "houseladderfirebase",
-  		storageBucket: "houseladderfirebase.appspot.com",
-  		messagingSenderId: "749338752601",
-  		appId: "1:749338752601:web:62acaa81f72ed50d386348"
-	};
+            apiKey: "AIzaSyDNmlUvpZCiyOfu4c8VrNPclRgTz-_Wy38",
+            authDomain: "houseladderfirebase.firebaseapp.com",
+            databaseURL: "https://houseladderfirebase-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "houseladderfirebase",
+            storageBucket: "houseladderfirebase.appspot.com",
+            messagingSenderId: "749338752601",
+            appId: "1:749338752601:web:62acaa81f72ed50d386348"
+        };
 
         // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
@@ -115,10 +115,10 @@
             document.getElementById('adminPanel').style.display = 'block';
         }
 
-        // Function to generate a random avatar using Dicebear API
+        // Function to generate a random avatar using Dicebear API (updated endpoint)
         function generateAvatar() {
             const randomSeed = Math.random().toString(36).substring(7); // Random seed for unique avatars
-            return `https://avatars.dicebear.com/api/bottts-neutral/${randomSeed}.svg`;
+            return `https://avatars.dicebear.com/v2/bottts-neutral/${randomSeed}.svg`;
         }
 
         // Add Player function with random avatar
