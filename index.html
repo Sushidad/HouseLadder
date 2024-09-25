@@ -235,20 +235,23 @@
         }
 
         function generateAvatarURL(baseUrl, rank) {
-    	// Strip any existing eyes or mouth options from the base URL
-    	let avatarUrl = baseUrl.replace(/&eyes=[^&]*/, '').replace(/&mouth=[^&]*/, '');
+   	 let avatarUrl = baseUrl; // Start with the base URL from Firebase
 
     	// If rank 1, modify the mouth option
     	if (rank === 1) {
-        	avatarUrl += '&mouth=smile01,smile02'; // Append smile options for rank 1
+       	 // Check if mouth is already set, if not, append smile options
+       	 avatarUrl = avatarUrl.replace(/&mouth=[^&]*/, ''); // Remove any existing mouth option
+       	 avatarUrl += '&mouth=smile01,smile02'; // Append smile options for rank 1
    	 }
 
    	 // If rank 9 or lower, modify the eyes option
-    	if (rank >= 9) {
-        	avatarUrl += '&eyes=dizzy'; // Append dizzy eyes for ranks 9 or lower
+    	else if (rank >= 9) {
+       	 // Check if eyes are already set, if not, append dizzy eyes
+        	avatarUrl = avatarUrl.replace(/&eyes=[^&]*/, ''); // Remove any existing eyes option
+       	 avatarUrl += '&eyes=dizzy'; // Append dizzy eyes for ranks 9 or lower
     	}
 
-    	// Return the final avatar URL with the appropriate options (if any)
+    	// Return the final avatar URL with the appropriate options (only if conditions are met)
     	return avatarUrl;
 	}
 
