@@ -139,7 +139,7 @@
                 opacity: 1;
             }
             100% {
-                transform: translate(calc(100px * (random() - 0.5)), calc(100px * (random() - 0.5)));
+                transform: translate(calc(100px * var(--random-x)), calc(100px * var(--random-y)));
                 opacity: 0;
             }
         }
@@ -151,6 +151,8 @@
             background-color: gold;
             animation: particle-move 1.5s infinite ease-in-out;
             opacity: 0.8;
+            top: calc(100% * var(--random-y)); /* Particle should start at a random Y */
+            left: calc(100% * var(--random-x)); /* Particle should start at a random X */
         }
 
         /* Particle container for top-rank */
