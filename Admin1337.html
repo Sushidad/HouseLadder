@@ -115,14 +115,14 @@
             document.getElementById('adminPanel').style.display = 'block';
         }
 
-        // Function to generate a random avatar using Dicebear API
-        function generateAvatar() {
-            return `https://api.dicebear.com/9.x/bottts-neutral/svg`; // Using the new endpoint for random avatar generation
+        // Function to generate an avatar using Dicebear API with the player's name as a seed
+        function generateAvatar(playerName) {
+            return `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(playerName)}`; // Using the player's name as seed
         }
 
-        // Add Player function with random avatar
+        // Add Player function with avatar based on the player's name
         function addPlayer(name, score) {
-            const avatarUrl = generateAvatar(); // Get random avatar URL
+            const avatarUrl = generateAvatar(name); // Generate avatar URL using the player's name as seed
 
             const newPlayerRef = leaderboardRef.push();
             newPlayerRef.set({
