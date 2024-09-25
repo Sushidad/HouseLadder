@@ -115,10 +115,9 @@
             document.getElementById('adminPanel').style.display = 'block';
         }
 
-        // Function to generate a random avatar using Dicebear API (updated endpoint)
+        // Function to generate a random avatar using Dicebear API
         function generateAvatar() {
-            const randomSeed = Math.random().toString(36).substring(7); // Random seed for unique avatars
-            return `https://avatars.dicebear.com/v2/bottts-neutral/${randomSeed}.svg`;
+            return `https://api.dicebear.com/9.x/bottts-neutral/svg`; // Using the new endpoint for random avatar generation
         }
 
         // Add Player function with random avatar
