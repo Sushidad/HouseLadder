@@ -1,22 +1,18 @@
-Welcome to the House in-house Leaderboard!
-The Current Leauge is played on Garfield Kart - Furious Racing
-[Steam Link Garfield Kart](https://store.steampowered.com/app/1085510/Garfield_Kart__Furious_Racing/)
+<h1>Welcome to the House In-House Leaderboard!</h1>
+<p>The Current League is played on <strong>Garfield Kart - Furious Racing</strong></p>
+<a href="https://store.steampowered.com/app/1085510/Garfield_Kart__Furious_Racing/" target="_blank">Steam Link to Garfield Kart</a>
 
-Schedule:
+<h2>Schedule</h2>
+<ul>
+    <li><strong>League Grand Prix 1</strong>: Monday, 30th September, 20:00-21:00</li>
+    <li><strong>League Grand Prix 2</strong>: Monday, 7th October, 20:00-21:00</li>
+    <li><strong>League Grand Prix 3</strong>: Monday, 14th October, 20:00-21:00</li>
+    <li><strong>Grand Final (Top 8 Players)</strong>: Monday, 21st October, 20:00-21:00</li>
+</ul>
 
-League Grand Prix 1: Monday, 30th September, 20:00-21:00
-League Grand Prix 2: Monday, 7th October, 20:00-21:00
-League Grand Prix 3: Monday, 14th October, 20:00-21:00
-Grand Final (Top 8 Players): Monday, 21st October, 20:00-21:00
+<h2>Event Details</h2>
+<p>Each League Grand Prix consists of 4 races. Players will earn points in the League Grand Prix to qualify for the Grand Final.</p>
+<p>The top 8 players from the leaderboard will advance to the Grand Final on October 21st.</p>
 
-
-Event Details:
-
-Each League Grand Prix consists of 4 races.
-Players will earn points in the League Grand Prix to qualify for the Grand Final.
-
-The Top 8 players from the leaderboard will advance to the Grand Final on October 21st.
-How to Sign Up:
-
-
-To join, message Yesmug or Suhidad on Discord.
+<h2>How to Sign Up</h2>
+<p>To join, message <strong>Yesmug</strong> or <strong>Suhidad</strong> on Discord.</p>

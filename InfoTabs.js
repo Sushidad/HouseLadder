@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(filesFolder + file)
                 .then(response => response.text())
                 .then(data => {
-                    contentContainer.innerText = data; // Set content
+                    contentContainer.innerHTML = data; // Set content
                 })
                 .catch(err => {
                     contentContainer.innerText = "Error loading file.";
