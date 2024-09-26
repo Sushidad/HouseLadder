@@ -1,0 +1,33 @@
+.info-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 20px;
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.tab-button {
+    background-color: #444;
+    border: none;
+    padding: 10px 20px;
+    color: #eee;
+    cursor: pointer;
+    border-bottom: 1px solid #555;
+}
+
+.tab-button:hover {
+    background-color: #555;
+}
+
+#tab-content {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #333;
+    color: #ddd;
+    border-radius: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+}
