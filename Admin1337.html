@@ -91,6 +91,23 @@
         const db = firebase.database();
         const leaderboardRef = db.ref('leaderboard');
 
+        // Generate avatar function
+        function generateAvatar(playerName) {
+            const eyesOptions = [
+                'bulging', 'eva', 'frame1', 'frame2', 'glow', 'happy', 
+                'hearts', 'robocop', 'round', 'roundFrame01', 'roundFrame02', 'sensor', 'shade01'
+            ];
+            const mouthOptions = [
+                'bite', 'diagram', 'grill01', 'grill02', 'grill03', 'smile01', 
+                'square01', 'square02'
+            ];
+
+            const randomEyes = eyesOptions[Math.floor(Math.random() * eyesOptions.length)];
+            const randomMouth = mouthOptions[Math.floor(Math.random() * mouthOptions.length)];
+
+            return `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(playerName)}&eyes=${randomEyes}&mouth=${randomMouth}&radius=10&backgroundType=solid`;
+        }
+
         // Render leaderboard for admin view
         function renderAdminLeaderboard() {
             leaderboardRef.once('value', (snapshot) => {
@@ -120,7 +137,7 @@
             newPlayerRef.set({
                 name: playerName,
                 score: playerScore,
-                avatar: `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${playerName}`
+                avatar: generateAvatar(playerName)
             });
             document.getElementById('player-name').value = '';
             document.getElementById('player-score').value = '';
