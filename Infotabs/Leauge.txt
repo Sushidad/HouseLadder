@@ -1,4 +1,4 @@
-<h1>Welcome to the House In-House Leaderboard!</h1>
+<h1>Welcome to the House In-House Leaderboard</h1>
 <p>The Current League is played on <strong>Garfield Kart - Furious Racing</strong></p>
 <a href="https://store.steampowered.com/app/1085510/Garfield_Kart__Furious_Racing/" target="_blank">Steam Link to Garfield Kart</a>
 
