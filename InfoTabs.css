@@ -32,6 +32,8 @@
     margin-right: 5px;
     margin-bottom: 10px;
     font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 1em;
 }
 
 .tab-button:hover {
