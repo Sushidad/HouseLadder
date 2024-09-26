@@ -2,10 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const tabsContainer = document.getElementById('tabs');
     const contentContainer = document.getElementById('tab-content');
 
-    const filesFolder = 'https://raw.githubusercontent.com/Sushidad/HouseLadder/refs/heads/main/Infotabs/'; // Update with the correct folder path
+    const filesFolder = 'https://raw.githubusercontent.com/Sushidad/HouseLadder/main/Infotabs/'; // Update with the correct folder path
 
     // List of files (could be dynamic in the future)
-    const files = ['file1.txt', 'file2.txt', 'file3.txt']; // Add more as needed
+    const files = ['Rules.txt', 'file2.txt', 'file3.txt']; // Add more as needed
 
     // Create tabs dynamically based on filenames
     files.forEach(file => {
