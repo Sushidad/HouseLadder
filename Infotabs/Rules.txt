@@ -7,3 +7,6 @@
 
 <h3>Reminder</h3>
 <p>Don’t be late—make sure to join on time when the race starts!</p>
+
+
+<a href="https://discord.gg/cKMYRgNxvr" target="_blank">Join this Discord before 20:00</a>
