@@ -1,1 +1,15 @@
-Some Event info text
+<h1>Garfield Kart In-House League</h1>
+<p><strong>Schedule:</strong></p>
+<ul>
+    <li><strong>30 Sept</strong> - League Grand Prix (20:00 - 21:00)</li>
+    <li><strong>7 Oct</strong> - League Grand Prix (20:00 - 21:00)</li>
+    <li><strong>14 Oct</strong> - League Grand Prix (20:00 - 21:00)</li>
+    <li><strong>21 Oct</strong> - Top 8 Grand Final (20:00 - 21:00)</li>
+</ul>
+<p><strong>Rules:</strong></p>
+<ul>
+    <li>Three League Grand Prix (4 races each) to score points for the leaderboard.</li>
+    <li>The top 8 players advance to the Grand Final.</li>
+</ul>
+<p><strong>Time:</strong> Every Monday, 20:00 - 21:00</p>
+<p><strong>To sign up:</strong> PM <em>Yesmug</em> or <em>Suhidad</em> on Discord.</p>
