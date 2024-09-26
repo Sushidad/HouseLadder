@@ -1,6 +1,8 @@
 <h1>League Rules</h1>
 <p>You earn points based on your placement in each League Grand Prix.</p>
 <p>The top 8 players with the highest total points will qualify for the Grand Final race.</p>
+<p>150 cc</p>
+<p>All characters, carts, hats and spoilers allowed</p>
 
 <h2>The Grand Final</h2>
 <p>The Grand Final will be a single Grand Prix—winner takes all.</p>
