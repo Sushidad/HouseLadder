@@ -1,8 +1,17 @@
+/* Centering the entire layout */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px; /* Space above the entire layout */
+}
+
+/* Info container styling, now centered and wider */
 .info-container {
     display: flex;
     flex-direction: column;
-    max-width: 400px;
-    margin: 20px;
+    max-width: 900px; /* Match the leaderboard width */
+    margin-bottom: 20px; /* Space between info box and leaderboard */
     background-color: #2a2a2a;
     padding: 20px;
     border-radius: 8px;
