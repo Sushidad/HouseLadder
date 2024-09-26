@@ -48,7 +48,7 @@
     background-color: #333;
     color: #ddd;
     border-radius: 12px; /* Match rounded corners with leaderboard */
-    max-height: 300px;
+    max-height: 900px;
     overflow-y: auto;
     font-family: 'Roboto', sans-serif; /* Match font family */
 }
