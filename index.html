@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
     <style>
+	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+	.site-footer {
+   	 position: fixed;
+    	bottom: 0;
+    	width: 100%;
+    	background-color: #1a1a1a;
+    	color: #aaa;
+   	 text-align: center;
+    	padding: 10px;
+    	font-size: 0.5em;
+   	 z-index: 100;
+	}
 	/* Style for the logo in the bottom-right corner */
 	.logo-container {
     	position: fixed;
@@ -20,7 +32,7 @@
     	height: auto;
 	}
 
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+        
 
         body {
             font-family: 'Roboto', sans-serif;
@@ -36,7 +48,7 @@
             max-width: 900px;
             margin: 50px auto;
             padding: 20px;
-            background-color: rgba(31, 31, 31, 0.9); /* Slight transparency for depth */
+            background-color: rgba(31, 31, 31, 0.8); /* Slight transparency for depth */
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
@@ -331,5 +343,8 @@ if (rank === 8) {
 <div class="logo-container">
     <img src="https://raw.githubusercontent.com/Sushidad/HouseLadder/main/House_Logo.png" alt="Logo">
 </div>
+<footer class="site-footer">
+    © 2024 HouseLadder. All Rights Reserved.
+</footer>
 </body>
 </html>

@@ -13,10 +13,9 @@
     flex-direction: column;
     max-width: 900px; /* Match the leaderboard width */
     margin-bottom: 20px; /* Space between info box and leaderboard */
-    background-color: rgba(31, 31, 31, 0.9); /* Match leaderboard background transparency */
+    background-color: rgba(31, 31, 31, 0.0); /* Match leaderboard background transparency */
     padding: 0px;
-    border-radius: 12px; /* Match the border-radius from the leaderboard */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Match leaderboard shadow */
+
     color: #e0e0e0; /* Match font color */
     font-family: 'Roboto', sans-serif; /* Match font family */
 }
@@ -28,12 +27,11 @@
     padding: 10px 10px;
     color: #eee;
     cursor: pointer;
-    border-bottom: 1px solid #555;
     border-radius: 8px; /* Make tabs rounded */
     margin-right: 5px;
     margin-bottom: 10px;
     font-family: 'Roboto', sans-serif;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 1em;
 }
 
@@ -43,11 +41,12 @@
 
 /* Tab content styling */
 #tab-content {
-    margin-top: 20px;
+    margin-top: 0px;
     padding: 20px;
-    background-color: #333;
+    background: linear-gradient(#333, #222); /* Gradient from #222 to #333 */
     color: #ddd;
     border-radius: 12px; /* Match rounded corners with leaderboard */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Match leaderboard shadow */
     max-height: 900px;
     overflow-y: auto;
     font-family: 'Roboto', sans-serif; /* Match font family */
@@ -55,6 +54,7 @@
 
 h1, h2, h3 {
     color: #ff4c4c; /* Set the headline color */
+    margin-top: 0px;
 }
 
 /* Change link color */
