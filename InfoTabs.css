@@ -52,3 +52,17 @@
     overflow-y: auto;
     font-family: 'Roboto', sans-serif; /* Match font family */
 }
+
+h1, h2, h3 {
+    color: #ff4c4c; /* Set the headline color */
+}
+
+/* Change link color */
+a {
+    color: #ff4c4c; /* Set the link color */
+    text-decoration: none; /* Remove underline */
+}
+
+a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
