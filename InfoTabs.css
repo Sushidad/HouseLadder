@@ -3,7 +3,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px; /* Space above the entire layout */
+    margin-top: 50px; /* Space above the entire layout */ 
+    margin-bottom: 20px;
 }
 
 /* Info container styling, now centered and matching the leaderboard */
