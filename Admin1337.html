@@ -3,77 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Manage Leaderboard</title>
+    <title>Admin Leaderboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
+            background-color: #333;
+            color: #eee;
+            margin: 0;
             padding: 20px;
         }
-        form {
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin-bottom: 20px;
         }
-        input {
-            margin-right: 10px;
-            background-color: #1e1e1e;
-            border: 1px solid #444;
-            color: #ffffff;
-        }
-        button {
-            background-color: #ffd700;
-            border: none;
-            color: #000;
-            padding: 5px 10px;
-        }
-        table, th, td {
-            border: 1px solid #444;
-            padding: 10px;
-            text-align: center;
-        }
         th, td {
-            color: #ffffff;
+            padding: 10px;
+            border-bottom: 1px solid #555;
+            text-align: left;
         }
         th {
-            background-color: #1e1e1e;
+            background-color: #444;
+        }
+        tr:nth-child(even) {
+            background-color: #444;
+        }
+        tr:nth-child(odd) {
+            background-color: #555;
+        }
+        button {
+            background-color: #ff4c4c;
+            border: none;
+            padding: 10px;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #ff3333;
         }
         h1 {
-            color: #ffd700;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Admin - Manage Leaderboard</h1>
+    <h1>Admin - Leaderboard Management</h1>
 
-    <!-- Login form for admin -->
-    <div id="loginForm">
-        <input type="password" id="adminPassword" placeholder="Enter Admin Password" required>
-        <button onclick="login()">Login</button>
-        <p id="loginError" style="color: red; display: none;">Incorrect password!</p>
-    </div>
+    <!-- Add Player Form -->
+    <form onsubmit="addPlayer(event)">
+        <input type="text" id="player-name" placeholder="Player Name" required>
+        <input type="number" id="player-score" placeholder="Player Score" required>
+        <button type="submit">Add Player</button>
+    </form>
 
-    <!-- The form and table are hidden until login -->
-    <div id="adminPanel" style="display: none;">
-        <form id="addPlayerForm">
-            <input type="text" id="playerName" placeholder="Player Name" required>
-            <input type="number" id="playerScore" placeholder="Score" required>
-            <button type="submit">Add Player</button>
-        </form>
-        <table>
-            <thead>
-                <tr>
-                    <th>Player</th>
-                    <th>Score</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="adminLeaderboard">
-                <!-- Players will be added here dynamically -->
-            </tbody>
-        </table>
-    </div>
+    <h2>Leaderboard</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Player</th>
+                <th>Score</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="leaderboard-admin">
+        </tbody>
+    </table>
 
-    <!-- Firebase setup -->
+    <!-- Firebase App (the core Firebase SDK) -->
     <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database-compat.js"></script>
 
@@ -94,108 +91,62 @@
         const db = firebase.database();
         const leaderboardRef = db.ref('leaderboard');
 
-        // Hardcoded admin password
-        const ADMIN_PASSWORD = "yourSecretAdminPassword"; // Make sure to change this to your actual secret password
-
-        // Login function to validate password
-        function login() {
-            const inputPassword = document.getElementById('adminPassword').value;
-            if (inputPassword === ADMIN_PASSWORD) {
-                sessionStorage.setItem('isAdmin', true); // Store the login session in sessionStorage
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
-            } else {
-                document.getElementById('loginError').style.display = 'block';
-            }
-        }
-
-        // Check if admin is already logged in (from sessionStorage)
-        if (sessionStorage.getItem('isAdmin')) {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('adminPanel').style.display = 'block';
-        }
-
-        // Function to generate an avatar using Dicebear API with random eyes and mouth options
-        function generateAvatar(playerName) {
-            // List of valid eyes and mouth options (excluding dizzy eyes and smile02 mouth)
-            const eyesOptions = [
-                'bulging', 'eva', 'frame1', 'frame2', 'glow', 'happy', 
-                'hearts', 'robocop', 'round', 'roundFrame01', 'roundFrame02', 'sensor', 'shade01'
-            ];
-            const mouthOptions = [
-                'bite', 'diagram', 'grill01', 'grill02', 'grill03', 'smile01', 
-                'square01', 'square02'
-            ];
-
-            // Select random eyes and mouth options from the lists
-            const randomEyes = eyesOptions[Math.floor(Math.random() * eyesOptions.length)];
-            const randomMouth = mouthOptions[Math.floor(Math.random() * mouthOptions.length)];
-
-            // Generate the avatar URL with the player's name as the seed and random eyes/mouth options
-            return `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(playerName)}&eyes=${randomEyes}&mouth=${randomMouth}&radius=10&backgroundType=solid`;
-        }
-
-        // Add Player function with avatar based on the player's name
-        function addPlayer(name, score) {
-            const avatarUrl = generateAvatar(name); // Generate avatar URL using the player's name as seed
-
-            const newPlayerRef = leaderboardRef.push();
-            newPlayerRef.set({
-                name: name,
-                score: score,
-                avatar: avatarUrl // Save avatar URL in Firebase
-            });
-
-            renderAdminLeaderboard();
-        }
-
-        // Remove player
-        function removePlayer(playerId) {
-            if (sessionStorage.getItem('isAdmin')) {
-                leaderboardRef.child(playerId).remove();
-                renderAdminLeaderboard();
-            }
-        }
-
-        // Update player score
-        function updateScore(playerId, newScore) {
-            if (sessionStorage.getItem('isAdmin')) {
-                leaderboardRef.child(playerId).update({ score: newScore });
-                renderAdminLeaderboard();
-            }
-        }
-
-        // Render Admin Leaderboard
+        // Render leaderboard for admin view
         function renderAdminLeaderboard() {
-            const adminLeaderboard = document.getElementById('adminLeaderboard');
-            adminLeaderboard.innerHTML = ''; // Clear the table
-
-            // Fetch leaderboard data from Firebase
             leaderboardRef.once('value', (snapshot) => {
+                const leaderboardTable = document.getElementById('leaderboard-admin');
+                leaderboardTable.innerHTML = '';
                 snapshot.forEach((childSnapshot) => {
                     const player = childSnapshot.val();
                     const row = `<tr>
                         <td><img src="${player.avatar}" alt="Avatar" style="width: 40px; height: 40px; border-radius: 0%; vertical-align: middle;"> ${player.name}</td>
                         <td>${player.score}</td>
                         <td>
-                            <button onclick="removePlayer('${childSnapshot.key}')">Remove</button>
+                            <button onclick="removePlayer('${childSnapshot.key}', '${player.name}')">Remove</button>
                             <button onclick="updateScore('${childSnapshot.key}', prompt('Enter new score'))">Update Score</button>
                         </td>
                     </tr>`;
-                    adminLeaderboard.innerHTML += row;
+                    leaderboardTable.innerHTML += row;
                 });
             });
         }
 
-        // Form submission event
-        document.getElementById('addPlayerForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const playerName = document.getElementById('playerName').value;
-            const playerScore = parseInt(document.getElementById('playerScore').value, 10);
-            addPlayer(playerName, playerScore);
-            e.target.reset();
-        });
+        // Add a new player
+        function addPlayer(event) {
+            event.preventDefault();
+            const playerName = document.getElementById('player-name').value;
+            const playerScore = document.getElementById('player-score').value;
+            const newPlayerRef = leaderboardRef.push();
+            newPlayerRef.set({
+                name: playerName,
+                score: playerScore,
+                avatar: `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${playerName}`
+            });
+            document.getElementById('player-name').value = '';
+            document.getElementById('player-score').value = '';
+            renderAdminLeaderboard();
+        }
 
+        // Remove a player with confirmation
+        function removePlayer(playerId, playerName) {
+            if (sessionStorage.getItem('isAdmin')) {
+                const confirmDelete = confirm(`Are you sure you want to delete ${playerName}?`);
+                if (confirmDelete) {
+                    leaderboardRef.child(playerId).remove();
+                    renderAdminLeaderboard();
+                }
+            }
+        }
+
+        // Update player score
+        function updateScore(playerId, newScore) {
+            if (newScore !== null && newScore !== '') {
+                leaderboardRef.child(playerId).update({ score: parseInt(newScore) });
+                renderAdminLeaderboard();
+            }
+        }
+
+        // Render leaderboard on page load
         renderAdminLeaderboard();
     </script>
 </body>
