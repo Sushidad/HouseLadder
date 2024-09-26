@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const filesFolder = 'https://raw.githubusercontent.com/Sushidad/HouseLadder/main/Infotabs/'; // Update with the correct folder path
 
     // List of files (could be dynamic in the future)
-    const files = ['Leauge.txt', 'Rules.txt']; // Add more as needed
+    const files = ['League.txt', 'Rules.txt']; // Add more as needed
 
     // Create tabs dynamically based on filenames
     files.forEach(file => {
