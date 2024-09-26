@@ -6,37 +6,46 @@
     margin-top: 50px; /* Space above the entire layout */
 }
 
-/* Info container styling, now centered and wider */
+/* Info container styling, now centered and matching the leaderboard */
 .info-container {
     display: flex;
     flex-direction: column;
     max-width: 900px; /* Match the leaderboard width */
     margin-bottom: 20px; /* Space between info box and leaderboard */
-    background-color: #2a2a2a;
+    background-color: rgba(31, 31, 31, 0.9); /* Match leaderboard background transparency */
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    border-radius: 12px; /* Match the border-radius from the leaderboard */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Match leaderboard shadow */
+    color: #e0e0e0; /* Match font color */
+    font-family: 'Roboto', sans-serif; /* Match font family */
 }
 
+/* Styling for the tabs */
 .tab-button {
-    background-color: #444;
+    background-color: #444; /* Darker background for tabs */
     border: none;
     padding: 10px 20px;
     color: #eee;
     cursor: pointer;
     border-bottom: 1px solid #555;
+    border-radius: 8px; /* Make tabs rounded */
+    margin-right: 5px;
+    margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .tab-button:hover {
     background-color: #555;
 }
 
+/* Tab content styling */
 #tab-content {
     margin-top: 20px;
     padding: 10px;
     background-color: #333;
     color: #ddd;
-    border-radius: 5px;
+    border-radius: 12px; /* Match rounded corners with leaderboard */
     max-height: 300px;
     overflow-y: auto;
+    font-family: 'Roboto', sans-serif; /* Match font family */
 }
