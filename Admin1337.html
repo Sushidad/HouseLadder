@@ -135,6 +135,7 @@
                         <td>
                             <button onclick="removePlayer('${childSnapshot.key}', '${player.name}')">Remove</button>
                             <button onclick="updateScore('${childSnapshot.key}', prompt('Enter new score'))">Update Score</button>
+                            <button onclick="addScore('${childSnapshot.key}', prompt('Enter score to add'))">Add Score</button>
                         </td>
                     </tr>`;
                     leaderboardTable.innerHTML += row;
@@ -174,6 +175,18 @@
             if (newScore !== null && newScore !== '') {
                 leaderboardRef.child(playerId).update({ score: parseInt(newScore) });
                 renderAdminLeaderboard();
+            }
+        }
+
+        // Add score to existing player score
+        function addScore(playerId, scoreToAdd) {
+            if (scoreToAdd !== null && scoreToAdd !== '') {
+                leaderboardRef.child(playerId).once('value', (snapshot) => {
+                    const currentScore = snapshot.val().score || 0;
+                    const newScore = currentScore + parseInt(scoreToAdd);
+                    leaderboardRef.child(playerId).update({ score: newScore });
+                    renderAdminLeaderboard();
+                });
             }
         }
 
