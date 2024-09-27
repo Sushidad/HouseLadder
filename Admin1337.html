@@ -48,30 +48,44 @@
     </style>
 </head>
 <body>
-    <h1>Admin - Leaderboard Management</h1>
 
-    <!-- Add Player Form -->
-    <form onsubmit="addPlayer(event)">
-        <input type="text" id="player-name" placeholder="Player Name" required>
-        <input type="number" id="player-score" placeholder="Player Score" required>
-        <button type="submit">Add Player</button>
-    </form>
+    <!-- Admin Login Form -->
+    <div id="login-form">
+        <h2>Admin Login</h2>
+        <input type="email" id="admin-email" placeholder="Email" required>
+        <input type="password" id="admin-password" placeholder="Password" required>
+        <button onclick="login()">Login</button>
+        <p id="login-error" style="color: red;"></p>
+    </div>
 
-    <h2>Leaderboard</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Player</th>
-                <th>Score</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody id="leaderboard-admin">
-        </tbody>
-    </table>
+    <!-- Hide admin content until logged in -->
+    <div id="admin-content" style="display: none;">
+        <h1>Admin - Leaderboard Management</h1>
+
+        <!-- Add Player Form -->
+        <form onsubmit="addPlayer(event)">
+            <input type="text" id="player-name" placeholder="Player Name" required>
+            <input type="number" id="player-score" placeholder="Player Score" required>
+            <button type="submit">Add Player</button>
+        </form>
+
+        <h2>Leaderboard</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Score</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-admin">
+            </tbody>
+        </table>
+    </div>
 
     <!-- Firebase App (the core Firebase SDK) -->
     <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database-compat.js"></script>
 
     <script>
@@ -91,21 +105,21 @@
         const db = firebase.database();
         const leaderboardRef = db.ref('leaderboard');
 
-        // Generate avatar function
-        function generateAvatar(playerName) {
-            const eyesOptions = [
-                'bulging', 'eva', 'frame1', 'frame2', 'glow', 'happy', 
-                'hearts', 'robocop', 'round', 'roundFrame01', 'roundFrame02', 'sensor', 'shade01'
-            ];
-            const mouthOptions = [
-                'bite', 'diagram', 'grill01', 'grill02', 'grill03', 'smile01', 
-                'square01', 'square02'
-            ];
+        // Firebase Authentication login function
+        function login() {
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
 
-            const randomEyes = eyesOptions[Math.floor(Math.random() * eyesOptions.length)];
-            const randomMouth = mouthOptions[Math.floor(Math.random() * mouthOptions.length)];
-
-            return `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(playerName)}&eyes=${randomEyes}&mouth=${randomMouth}&radius=10&backgroundType=solid`;
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Successfully logged in
+                    document.getElementById('login-form').style.display = 'none';
+                    document.getElementById('admin-content').style.display = 'block';
+                    sessionStorage.setItem('isAdmin', true); // Save login state in session
+                })
+                .catch((error) => {
+                    document.getElementById('login-error').innerText = error.message;
+                });
         }
 
         // Render leaderboard for admin view
