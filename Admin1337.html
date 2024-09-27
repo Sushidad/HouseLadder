@@ -99,7 +99,24 @@
             messagingSenderId: "749338752601",
             appId: "1:749338752601:web:62acaa81f72ed50d386348"
         };
+	
+	// Generate avatar function
+        function generateAvatar(playerName) {
+            const eyesOptions = [
+                'bulging', 'eva', 'frame1', 'frame2', 'glow', 'happy', 
+                'hearts', 'robocop', 'round', 'roundFrame01', 'roundFrame02', 'sensor', 'shade01'
+            ];
+            const mouthOptions = [
+                'bite', 'diagram', 'grill01', 'grill02', 'grill03', 'smile01', 
+                'square01', 'square02'
+            ];
 
+            const randomEyes = eyesOptions[Math.floor(Math.random() * eyesOptions.length)];
+            const randomMouth = mouthOptions[Math.floor(Math.random() * mouthOptions.length)];
+
+            return `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(playerName)}&eyes=${randomEyes}&mouth=${randomMouth}&radius=10&backgroundType=solid`;
+        }
+	
         // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
