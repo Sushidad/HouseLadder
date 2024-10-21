@@ -313,11 +313,12 @@
                     const playerClass = rank > 8 ? 'below-rank-8' : '';
                     const avatarUrlWithOptions = generateAvatarURL(baseAvatarUrl, rank); // Apply the rank-based logic
 
-                    const playerCard = `
+                   const playerCard = `
 <div class="player-card ${rank === 1 ? 'top-rank' : ''} ${playerClass}">
     <div class="player-rank">${rank}.</div>
     <img src="${avatarUrlWithOptions}" alt="Avatar" class="player-avatar">
     <div class="player-name">${player.name}</div>
+    ${player.name === "Shifty" ? '<div class="garfield-master" style="flex-grow: 1; text-align: center; font-size: 0.9em; color: #888;">Garfield Kart Master</div>' : ''}
     <div class="player-score">${player.score}</div>
     ${rank === 1 ? `
     <div class="particle-container">
@@ -325,9 +326,10 @@
             <div class="particle" style="--random-x: ${Math.random()}; --random-y: ${Math.random()};"></div>
         `).join('')}
     </div>` : ''}
-    ${player.name === "Shifty" ? '<div class="garfield-master" style="text-align: center; font-size: 1.2em; color: gold;">Garfield Kart Master</div>' : ''}
 </div>
 `;
+
+
 
 
 leaderboard.innerHTML += playerCard;
